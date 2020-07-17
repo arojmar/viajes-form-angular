@@ -1,0 +1,96 @@
+<div class="container">
+<!-- #viajeForm: es la variable con el contenido del objeto FormGroup que genera
+angular -->
+<!-- (ngSubmit):  es el evento de salida de la directiva ngForm que se provoca al hacer submit sobre el formulario -->
+<form #viajeForm=ngForm (ngSubmit)="guardar()">
+<div class="row">
+    <div class="field-element">
+        <label>Nombre del viaje</label>
+        <!-- name: Nombre de la propiedad que se generara en el formulario para el campo -->
+        <!-- ngModel: 1. Crea un FormControl dentro del formulario 
+                      2. crea una propiedad en el objeto formulario con el nombre definido en el atributo name del input -->
+        <!-- [(ngModel)]="viaje.nombreDelViaje": Establece el two-way data binding, es decir que crea un camino bidireccional -->
+        <!-- #nombreDelViaje="ngModel": Generamos una variable que contiene el FormControl que genera ngModel -->
+        <input type="text" required [(ngModel)]="viaje.nombreDelViaje"
+            name="nombreDelViaje" minlength="5" #nombreDelViaje=ngModel>
+        <div [hidden]="nombreDelViaje.valid || nombreDelViaje.pristine" class="error">
+            Nombre del viaje es obligatorio
+        </div>
+    </div>
+
+    <div class="field-element">
+        <label>Tipo de viaje</label>
+        <select required [(ngModel)]="viaje.tipoDelViaje"
+            name="tipoDeViaje" #tipoDeViaje=ngModel>
+            <option *ngFor="let item of tiposDeViajes" [value]="item">
+                {{item}}
+            </option>
+        </select>
+    </div>
+
+    <div class="field-element">
+        <label>Duracion</label>
+        <input type="text" name="duracion" #duracion=ngModel [(ngModel)]="viaje.duracion" required>
+        <div [hidden]="duracion.valid || duracion.pristine" class="error">
+            Introduce la duracion
+        </div>
+    </div>
+
+    <div class="field-element">
+        <label>Destino</label>
+        <input type="text" name="destino" #destino=ngModel [(ngModel)]="viaje.destino" required>
+        <div [hidden]="destino.valid || destino.pristine" class="error">
+            Introduce el destino
+        </div>
+    </div>
+
+    <div class="field-element">
+        <label>Plazas</label>
+        <input type="number" name="plazas" #plazas=ngModel [(ngModel)]="viaje.plazas">
+    </div>
+
+    <div class="field-element">
+        <label>Visible</label>
+        <input type="checkbox" name="visible" #visible=ngModel [(ngModel)]="viaje.visible">
+    </div>
+
+    <div class="field-element">
+        <label>Estado</label>
+        <select name = "estado" #estado=ngModel [(ngModel)]="viaje.estado" required>
+            <!-- <option *ngFor="let item of estados" 
+            [value]="estados.indexOf(item) + 1">
+                {{item}}
+            </option> -->
+            <!-- [value]: con corchetes lo considera como un input -->
+            <option [value]="viajeEstado.AbiertoHastaElAmanecer">
+                {{viajeEstado[viajeEstado.AbiertoHastaElAmanecer]}}
+            </option>
+            <option [value]="viajeEstado.Cancelado">
+                {{viajeEstado[viajeEstado.Cancelado]}}
+            </option>
+            <option [value]="viajeEstado.Cerrado">
+                {{viajeEstado[viajeEstado.Cerrado]}}
+            </option>
+            <option [value]="viajeEstado.Postpuesto">
+                {{viajeEstado[viajeEstado.Postpuesto]}}
+            </option>
+        </select>
+        <div [hidden]="estado.valid || estado.pristine" class="error">
+            Introduce el estado
+        </div>
+    </div>
+
+</div>
+<div class="row-reverse">
+    <button class="btn primary" type="submit" [disabled]="!viajeForm.form.valid">
+        Guardar
+    </button>
+    <!-- <button class="btn" type="button">Nuevo Viaje</button> -->
+</div>
+
+{{viajeForm.status}}
+
+
+</form>
+
+</div>
