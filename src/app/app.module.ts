@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ViajeNgformComponent } from './viaje-ngform/viaje-ngform.component';
+import { ViajeReactiveFormComponent } from './viaje-reactive-form/viaje-reactive-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViajeNgformComponent
+    ViajeNgformComponent,
+    ViajeReactiveFormComponent
   ],
   imports: [
     BrowserModule,
