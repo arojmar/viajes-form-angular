@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Viaje } from '../models/viaje';
+import { IdValue } from '../models/id-value';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-viaje-reactive-form',
@@ -7,9 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViajeReactiveFormComponent implements OnInit {
 
-  constructor() { }
+  @Input() viaje: Viaje = new Viaje();
+  @Input() tiposViajes: IdValue[]= [];
+  @Input() estados: IdValue[] = [];
+  @Output() viajeChanged = new EventEmitter<Viaje>(false);
+
+  elFormulario: FormGroup;
+
+  constructor(fb: FormBuilder) {
+
+    this.elFormulario = fb.group({
+      nombreDelViaje: ['', Validators.required], 
+      tipoDelViaje: [''], 
+      duracion:  [0], 
+      destino: [''], 
+      plazas:[0], 
+      visible:[true], 
+      estado: [''] 
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  guardar(formValue: any): void {
+   this.viajeChanged.emit(formValue);
   }
 
 }

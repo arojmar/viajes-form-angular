@@ -4,7 +4,10 @@
     [tiposViajes]="tiposDeViajes"
     (viajeChanged)="guardar($event)">
 </app-viaje-ngform>
-<app-viaje-ngform 
-    [estados]="estados">
-</app-viaje-ngform>
+<app-viaje-reactive-form
+    [viaje]="viaje"
+    [estados]="estados" 
+    [tiposViajes]="tiposDeViajes"
+    (viajeChanged)="guardar($event)">
+</app-viaje-reactive-form>
  

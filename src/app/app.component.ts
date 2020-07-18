@@ -86,12 +86,12 @@ export class AppComponent implements OnInit {
   }
 
   guardar(v: Viaje): void{
-    // console.table(v);
     this.guardarViaje(v);
   }
 
   private guardarViaje(viaje: Viaje): Viaje {
     // llamaria a una API y guardaria el objeto despues de haberlo guardado
+    console.table(viaje);
     return viaje;
   }
 }

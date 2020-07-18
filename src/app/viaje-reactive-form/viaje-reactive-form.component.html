@@ -1,1 +1,57 @@
-<p>viaje-reactive-form works!</p>
+<div class="container">
+    <h1>Reactive form</h1>
+    <form [formGroup]="elFormulario" (ngSubmit)="guardar(elFormulario.value)">
+    <div class="row">
+        <div class="field-element">
+            <label>Nombre del viaje</label>
+            <input type="text" formControlName="nombreDelViaje" >
+        </div>
+    
+        <div class="field-element">
+            <label>Tipo de viaje</label>
+            <select formControlName="tipoDelViaje">
+                <option *ngFor="let item of tiposViajes" [value]="item.id" >
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+    
+        <div class="field-element">
+            <label>Duracion</label>
+            <input type="text" formControlName="duracion">
+        </div>
+    
+        <div class="field-element">
+            <label>Destino</label>
+            <input type="text" formControlName="duracion">
+        </div>
+    
+        <div class="field-element">
+            <label>Plazas</label>
+            <input type="number" formControlName="plazas">
+        </div>
+    
+        <div class="field-element">
+            <label>Visible</label>
+            <input type="checkbox" formControlName="visible">
+        </div>
+    
+        <div class="field-element">
+            <label>Estado</label>
+            <select formControlName="estado">
+                <option *ngFor="let item of estados" [value]="item.id">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+    
+    </div>
+    <div class="row-reverse">
+        <button class="btn primary" type="submit" [disabled]="!elFormulario.valid">
+            Guardar
+        </button>
+    </div>
+  <!-- {{viajeForm.status}}  -->
+    </form>
+    
+    </div>
