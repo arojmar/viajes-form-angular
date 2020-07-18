@@ -22,8 +22,11 @@ angular -->
         <label>Tipo de viaje</label>
         <select required [(ngModel)]="viaje.tipoDelViaje"
             name="tipoDeViaje" #tipoDeViaje=ngModel>
-            <option *ngFor="let item of tiposDeViajes" [value]="item">
+            <!-- <option *ngFor="let item of tiposDeViajes" [value]="item">
                 {{item}}
+            </option> -->
+            <option *ngFor="let item of tiposViajes" [value]="item.id" >
+                {{item.value}}
             </option>
         </select>
     </div>
@@ -56,13 +59,15 @@ angular -->
 
     <div class="field-element">
         <label>Estado</label>
-        <select name = "estado" #estado=ngModel [(ngModel)]="viaje.estado" required>
-            <!-- <option *ngFor="let item of estados" 
-            [value]="estados.indexOf(item) + 1">
+        <select name="estado" #estado=ngModel [(ngModel)]="viaje.estado" required>
+            <!-- ------------------OPCION 1----------------- -->
+            <!-- <option *ngFor="let item of status" 
+            [value]="status.indexOf(item) + 1">
                 {{item}}
             </option> -->
+            <!-- ------------------OPCION 2----------------- -->
             <!-- [value]: con corchetes lo considera como un input -->
-            <option [value]="viajeEstado.AbiertoHastaElAmanecer">
+            <!-- <option [value]="viajeEstado.AbiertoHastaElAmanecer">
                 {{viajeEstado[viajeEstado.AbiertoHastaElAmanecer]}}
             </option>
             <option [value]="viajeEstado.Cancelado">
@@ -73,6 +78,17 @@ angular -->
             </option>
             <option [value]="viajeEstado.Postpuesto">
                 {{viajeEstado[viajeEstado.Postpuesto]}}
+            </option> -->
+            <!-- ------------------OPCION 3----------------- -->
+            <!-- Esto nos sirve para presentar el valor del enum en key y value -->
+            <!-- <option *ngFor="let item of viajeEstado | keyvalue" [value]="item.value">
+                {{item.key}}
+            </option> -->
+            <!-- Lo que pasa que falla debido a que desdobla los valores, ya que son de
+            diferente tipo (string y number) -->
+            <!-- ------------------OPCION 4----------------- -->
+            <option *ngFor="let item of estados" [value]="item.id">
+                {{item.value}}
             </option>
         </select>
         <div [hidden]="estado.valid || estado.pristine" class="error">

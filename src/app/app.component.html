@@ -1,1 +1,10 @@
-<app-viaje-ngform [viaje]=""></app-viaje-ngform>
+<app-viaje-ngform 
+    [viaje]="viaje"
+    [estados]="estados" 
+    [tiposViajes]="tiposDeViajes"
+    (viajeChanged)="guardar($event)">
+</app-viaje-ngform>
+<app-viaje-ngform 
+    [estados]="estados">
+</app-viaje-ngform>
+ 

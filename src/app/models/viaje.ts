@@ -5,9 +5,16 @@ export enum ViajeEstado {
     Postpuesto = 4
 }
 
+export enum TipoDeViaje {
+    Crucero = 1,
+    Buceo = 2,
+    TodoIncluido = 3
+}
+
 export class Viaje {
+    id: number;
     nombreDelViaje: string; // input
-    tipoDelViaje: string; // select
+    tipoDelViaje: TipoDeViaje; // select
     duracion: number; // input
     destino: string; // input
     plazas?: number; // input
