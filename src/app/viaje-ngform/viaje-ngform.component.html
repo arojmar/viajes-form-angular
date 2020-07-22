@@ -1,113 +1,86 @@
 <div class="container">
-<!-- #viajeForm: es la variable con el contenido del objeto FormGroup que genera
-angular -->
-<!-- (ngSubmit):  es el evento de salida de la directiva ngForm que se provoca al hacer submit sobre el formulario -->
-<h1>Declarative Form</h1>
-<form #viajeForm=ngForm (ngSubmit)="guardar()">
-<div class="row">
-    <div class="field-element">
-        <label>Nombre del viaje</label>
-        <!-- name: Nombre de la propiedad que se generara en el formulario para el campo -->
-        <!-- ngModel: 1. Crea un FormControl dentro del formulario 
-                      2. crea una propiedad en el objeto formulario con el nombre definido en el atributo name del input -->
-        <!-- [(ngModel)]="viaje.nombreDelViaje": Establece el two-way data binding, es decir que crea un camino bidireccional -->
-        <!-- #nombreDelViaje="ngModel": Generamos una variable que contiene el FormControl que genera ngModel -->
-        <input type="text" required [(ngModel)]="viaje.nombreDelViaje"
-            name="nombreDelViaje" minlength="5" #nombreDelViaje=ngModel>
-        <div [hidden]="nombreDelViaje.valid || nombreDelViaje.pristine" class="error">
-            Nombre del viaje es obligatorio
+    <!-- #viajeForm: Variable con el contenido del objeto FormGroup que nos genera Angular -->
+    <!-- ngSubmit: Evento de salida de la directiva ngForm que se provoca al hacer submit sobre el formulario -->
+    <form #viajeForm=ngForm (ngSubmit)="guardar()">
+        <div class="row">
+            <div class="field-element ">
+                <label>Nombre del Viaje</label>
+                <!--name: Nombre de la propiedad que se generara en el formulario para el campo -->
+                <!--ngModel: 1. Crea un FormControl dentro del formulario.
+                                 2  Crea una propiedad en el objeto formulario con el nombre definido
+                                en el atributo name del input -->
+                <!--[(ngModel)]="viaje.nombreDelViaje": Establecer el two-way data binding  -->
+                <!--#nombreDelViaje="ngModel": generamos una variable que contiene el FormControl que genera ngModel -->
+                <input type="text" name="nombreDelViaje" required [(ngModel)]="viaje.nombreDelViaje" #nombreDelViaje=ngModel>
+                <div [hidden]="nombreDelViaje.valid || nombreDelViaje.pristine" class="error">
+                    Nombre del Viaje es obligatorio
+                </div>
+            </div>
+
+            <div class="field-element ">
+                <label>Destino</label>
+                <input type="text" name="destino" required [(ngModel)]="viaje.destino" #destino=ngModel>
+            </div>
+
+            <div class="field-element ">
+                <label>Duracion</label>
+                <input type="number" name="duracion" required [(ngModel)]="viaje.duracion" #duracion=ngModel>
+            </div>
+
+            <div class="field-element ">
+                <label>Plazas</label>
+                <input type="number" name="plazas" required [(ngModel)]="viaje.plazas" #plazas=ngModel>
+            </div>
+
+            <!-- <div class="field-element ">
+                <label></label>
+                <input type="text">
+            </div> -->
+
+            <div class="field-element">
+                <label>Tipo de Viaje</label>
+                <select required [(ngModel)]="viaje.tipoDelViaje" name="tipoDelViaje">
+                    <option></option>
+                    <option *ngFor="let item of tiposDeViajes" [value]="item">{{item}}</option>
+                </select>
+            </div>
+
+            <div class="field-element">
+                <label>Viaje Visible</label>
+                <select [(ngModel)]="viaje.visible" name="visible">
+                    <option value="true">Si</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <!-- <div class="field-element">
+                <label>Estado</label>
+                <select [(ngModel)]="viaje.estado" name="estado">
+                    <option></option>
+                    <option *ngFor="let item of viaje | keyvalue" [value]="item.value">{{item.key}}</option>
+                </select>
+            </div> -->
+
+            <div class="field-element">
+                <label>Estado</label>
+                <select [(ngModel)]="viaje.estado" name="estado">
+                    <option></option>
+                    <option *ngFor="let item of estados" [value]="item.id">{{item.value}}</option>
+                </select>
+            </div>
+
+            <!-- <div class="field-element ">
+                <label>Viaje Visible</label>
+                <input type="checkbox" name="visible" [(ngModel)]="viaje.visible" #visible=ngModel>
+            </div> -->
         </div>
-    </div>
-
-    <div class="field-element">
-        <label>Tipo de viaje</label>
-        <select required [(ngModel)]="viaje.tipoDelViaje"
-            name="tipoDeViaje" #tipoDeViaje=ngModel>
-            <!-- <option *ngFor="let item of tiposDeViajes" [value]="item">
-                {{item}}
-            </option> -->
-            <option *ngFor="let item of tiposViajes" [value]="item.id" >
-                {{item.value}}
-            </option>
-        </select>
-    </div>
-
-    <div class="field-element">
-        <label>Duracion</label>
-        <input type="text" name="duracion" #duracion=ngModel [(ngModel)]="viaje.duracion" required>
-        <div [hidden]="duracion.valid || duracion.pristine" class="error">
-            Introduce la duracion
+        <div class="row-reverse">
+            <button class="btn primary" type="submit" [disabled]="!viajeForm.form.valid">Guardar</button>
+            <!-- <button class="btn" type="button">Nuevo Viaje</button> -->
         </div>
-    </div>
 
-    <div class="field-element">
-        <label>Destino</label>
-        <input type="text" name="destino" #destino=ngModel [(ngModel)]="viaje.destino" required>
-        <div [hidden]="destino.valid || destino.pristine" class="error">
-            Introduce el destino
-        </div>
-    </div>
-
-    <div class="field-element">
-        <label>Plazas</label>
-        <input type="number" name="plazas" #plazas=ngModel [(ngModel)]="viaje.plazas">
-    </div>
-
-    <div class="field-element">
-        <label>Visible</label>
-        <input type="checkbox" name="visible" #visible=ngModel [(ngModel)]="viaje.visible">
-    </div>
-
-    <div class="field-element">
-        <label>Estado</label>
-        <select name="estado" #estado=ngModel [(ngModel)]="viaje.estado" required>
-            <!-- ------------------OPCION 1----------------- -->
-            <!-- <option *ngFor="let item of status" 
-            [value]="status.indexOf(item) + 1">
-                {{item}}
-            </option> -->
-            <!-- ------------------OPCION 2----------------- -->
-            <!-- [value]: con corchetes lo considera como un input -->
-            <!-- <option [value]="viajeEstado.AbiertoHastaElAmanecer">
-                {{viajeEstado[viajeEstado.AbiertoHastaElAmanecer]}}
-            </option>
-            <option [value]="viajeEstado.Cancelado">
-                {{viajeEstado[viajeEstado.Cancelado]}}
-            </option>
-            <option [value]="viajeEstado.Cerrado">
-                {{viajeEstado[viajeEstado.Cerrado]}}
-            </option>
-            <option [value]="viajeEstado.Postpuesto">
-                {{viajeEstado[viajeEstado.Postpuesto]}}
-            </option> -->
-            <!-- ------------------OPCION 3----------------- -->
-            <!-- Esto nos sirve para presentar el valor del enum en key y value -->
-            <!-- <option *ngFor="let item of viajeEstado | keyvalue" [value]="item.value">
-                {{item.key}}
-            </option> -->
-            <!-- Lo que pasa que falla debido a que desdobla los valores, ya que son de
-            diferente tipo (string y number) -->
-            <!-- ------------------OPCION 4----------------- -->
-            <option *ngFor="let item of estados" [value]="item.id">
-                {{item.value}}
-            </option>
-        </select>
-        <div [hidden]="estado.valid || estado.pristine" class="error">
-            Introduce el estado
-        </div>
-    </div>
-
-</div>
-<div class="row-reverse">
-    <button class="btn primary" type="submit" [disabled]="!viajeForm.form.valid">
-        Guardar
-    </button>
-    <!-- <button class="btn" type="button">Nuevo Viaje</button> -->
-</div>
-
-{{viajeForm.status}}
-
-
-</form>
-
+        {{
+            viajeForm.status
+        }}
+    </form>
 </div>
